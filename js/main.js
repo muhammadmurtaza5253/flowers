@@ -14,7 +14,7 @@ function appendTitle(callback) {
   if (index < titles.length) {
     titleElement.innerHTML += titles[index];
     index++;
-    setTimeout(() => appendTitle(callback), 100); // continue typing
+    setTimeout(() => appendTitle(callback), 50); // continue typing
   } else {
     if (callback) callback(); // call appendWords when done
   }
@@ -40,25 +40,10 @@ function appendTitle(callback) {
 
 function playSound() {
   const btn = document.getElementsByClassName('sound-btn')[0];
+  btn.style.display = "none";
   const audio = document.getElementById("audio");
 
-  audio.volume = 0.6; // reset volume to max
   audio.play()
-    .then(() => {
-      btn.style.display = "none";
-
-      const fadeDuration = 5; // seconds to fade out
-      audio.addEventListener('timeupdate', () => {
-        const timeLeft = audio.duration - audio.currentTime;
-
-        if (timeLeft <= fadeDuration && timeLeft > 0) {
-          // Calculate new volume: linear fade from 1 to 0 over fadeDuration
-          audio.volume = timeLeft / fadeDuration;
-        } else if (timeLeft <= 0) {
-          audio.volume = 0;
-        }
-      });
-    })
     .catch((error) => {
       console.warn("Playback failed:", error);
     });
