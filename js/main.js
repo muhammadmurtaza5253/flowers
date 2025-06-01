@@ -20,7 +20,7 @@ function appendTitle(callback) {
   }
 }
 
-    function appendWords() {
+  function appendWords() {
     if (wordsIndex === 0) {
       const btn = document.getElementsByClassName('sound-btn')[0];
       btn.style.display = "flex";
@@ -28,12 +28,10 @@ function appendTitle(callback) {
       if (wordsIndex < words.length) {
         wordsElement.innerHTML += words[wordsIndex];
         wordsIndex++;
-        setTimeout(appendWords, 100); // 1000ms delay
+        requestAnimationFrame(() => setTimeout(appendWords, 100));
       }
     }
-
     appendTitle(appendWords);
-
     clearTimeout(c);
   }, 1000);
 };
